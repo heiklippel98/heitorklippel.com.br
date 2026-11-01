@@ -12,17 +12,15 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2307090d'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='900' font-size='15' fill='%23ffb000' text-anchor='middle'%3EHK%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="progress" id="progress" aria-hidden="true"></div>
-
 <!-- Top bar -->
 <header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="#inicio"><span class="led"></span>HEITOR<b>KLIPPEL</b></a>
+    <a class="brand" href="#inicio">Heitor Klippel</a>
     <nav class="nav" id="nav">
       <a href="#sobre" data-spy="sobre"><span lang="pt">Sobre</span><span lang="en">About</span></a>
       <a href="#competencias" data-spy="competencias"><span lang="pt">Competências</span><span lang="en">Skills</span></a>
@@ -36,33 +34,19 @@
   </div>
 </header>
 
-<!-- Process rail (desktop) -->
-<aside class="rail" aria-hidden="true">
-  <a href="#inicio" data-spy="inicio"><i></i><span>00</span></a>
-  <a href="#sobre" data-spy="sobre"><i></i><span>01</span></a>
-  <a href="#competencias" data-spy="competencias"><i></i><span>02</span></a>
-  <a href="#projetos" data-spy="projetos"><i></i><span>03</span></a>
-  <a href="#trajetoria" data-spy="trajetoria"><i></i><span>04</span></a>
-  <a href="#reconhecimentos" data-spy="reconhecimentos"><i></i><span>05</span></a>
-  <a href="#campo" data-spy="campo"><i></i><span>06</span></a>
-  <a href="#formacao" data-spy="formacao"><i></i><span>07</span></a>
-</aside>
-
 <main>
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="inicio" data-section>
     <video class="hero-video" src="img/loop-patio-drone.mp4" poster="img/loop-patio-drone.webp" autoplay muted loop playsinline aria-hidden="true"></video>
     <div class="hero-shade" aria-hidden="true"></div>
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-spot" id="spot" aria-hidden="true"></div>
 
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="tick"></span><span lang="pt">Currículo e portfólio</span><span lang="en">Résumé &amp; portfolio</span></p>
+        <p class="eyebrow"><span lang="pt">Currículo e portfólio</span><span lang="en">Résumé &amp; portfolio</span></p>
         <h1 class="name">
           <span class="ln">Heitor</span>
-          <span class="ln outline">Mayer</span>
+          <span class="ln">Mayer</span>
           <span class="ln">Klippel</span>
         </h1>
         <p class="lead" lang="pt">Automação, instrumentação e monitoramento de ativos em mineração e siderurgia. Hoje no Centro de Monitoramento de Ativos da Vale, no Porto de Tubarão.</p>
@@ -79,7 +63,6 @@
       <figure class="hmi">
         <div class="hmi-body">
           <img src="img/retrato-abm.webp" alt="Heitor Klippel no púlpito da ABM Week 2026" width="480" height="720">
-          <i class="br tl"></i><i class="br tr"></i><i class="br bl"></i><i class="br bm"></i>
         </div>
         <figcaption class="hmi-tag">
           <b>Analista de Automação Pleno</b>
@@ -88,11 +71,6 @@
       </figure>
     </div>
 
-    <div class="wrap hud">
-      <div class="hud-item"><small>LOCAL</small><span>Vila Velha · ES · BR</span></div>
-      <div class="hud-item"><small>BRT</small><span id="clock">--:--:--</span></div>
-      <a class="hud-scroll" href="#sobre"><span lang="pt">Role</span><span lang="en">Scroll</span><i></i></a>
-    </div>
   </section>
 
   <!-- ============ TICKER ============ -->
@@ -112,7 +90,6 @@
   <section class="block" id="sobre" data-section>
     <div class="wrap">
       <header class="sec-head reveal">
-        <span class="sec-num">01</span>
         <h2><span lang="pt">Sobre</span><span lang="en">About</span></h2>
       </header>
 
@@ -120,26 +97,38 @@
         <div class="about-media reveal">
           <figure class="focus">
             <img src="img/campo-porto.webp" alt="Heitor em inspeção de campo no Porto de Tubarão" loading="lazy" width="1600" height="1200">
-            <i class="br tl"></i><i class="br tr"></i><i class="br bl"></i><i class="br bm"></i>
             <figcaption><span lang="pt">Inspeção de campo · Porto de Tubarão, 2024</span><span lang="en">Field inspection · Port of Tubarão, 2024</span></figcaption>
           </figure>
-          <dl class="datasheet">
-            <div><dt lang="pt">Local</dt><dt lang="en">Location</dt><dd>Vila Velha, ES · <span lang="pt">Brasil</span><span lang="en">Brazil</span></dd></div>
-            <div><dt lang="pt">Idiomas</dt><dt lang="en">Languages</dt><dd><span lang="pt">Inglês intermediário superior · conduzo reuniões técnicas</span><span lang="en">Upper-intermediate English · I lead technical meetings</span></dd></div>
-            <div><dt lang="pt">Graduação</dt><dt lang="en">Degree</dt><dd><span lang="pt">Eng. Elétrica</span><span lang="en">B.Eng. Electrical</span> · Multivix · 2023</dd></div>
-            <div><dt lang="pt">Pós</dt><dt lang="en">Postgrad</dt><dd><span lang="pt">Análise de Dados</span><span lang="en">Data Analysis</span> · Multivix · 2025</dd></div>
-          </dl>
         </div>
 
         <div class="about-text reveal">
-          <p class="statement" lang="pt"><strong>Engenheiro Eletricista com 6 anos de experiência em automação industrial e integração de dados</strong>, com atuação hands-on em AVEVA PI System (PIMS), comunicação OPC, PLCs e desenvolvimento SCADA.</p>
-          <p class="statement" lang="en"><strong>Electrical Engineer with 6 years of experience in industrial automation and data integration</strong>, hands-on with AVEVA PI System (PIMS), OPC communication, PLCs and SCADA development.</p>
-          <p lang="pt">Atualmente na <strong>Vale, no Centro de Monitoramento de Ativos</strong> do Porto de Tubarão, sou responsável técnico pela sustentação do ambiente PI e dos sistemas de monitoramento online (AVEVA PI, ACOEM e SKF). Desenvolvo soluções integradas no PI System e novos sistemas de monitoramento de ativos, integro dados de PLCs e sistemas de monitoramento de condição ao PIMS via OPC, defino demandas de PI Vision e atuo na análise de lógicas de PLC e na implantação de novos sistemas de proteção.</p>
+          <p class="statement" lang="pt"><strong>Engenheiro Eletricista com 6 anos de experiência em automação industrial e integração de dados</strong>, atuando com AVEVA PI System (PIMS), OPC, PLCs, SCADA e desenvolvimento de software.</p>
+          <p class="statement" lang="en"><strong>Electrical Engineer with 6 years of experience in industrial automation and data integration</strong>, working with AVEVA PI System (PIMS), OPC, PLCs, SCADA and software development.</p>
+          <p lang="pt">Atualmente na <strong>Vale, no Centro de Monitoramento de Ativos</strong> do Porto de Tubarão, sou responsável técnico pela sustentação do ambiente PI e dos sistemas de monitoramento online (ACOEM, SKF e Dynamox). Desenvolvo soluções integradas no PI System e novos sistemas de monitoramento de ativos, integro ao PIMS os dados de PLCs e de sistemas de monitoramento, e atuo na análise de lógicas de PLC, na implantação de novos sistemas de proteção e em análises de falhas.</p>
           <p lang="pt">Experiência anterior em desenvolvimento de lógicas de PLC (Rockwell ControlLogix), desenvolvimento SCADA (supervisórios) e IHMs, além de comissionamento e startup de sistemas. Perfil técnico e hands-on, com foco em confiabilidade, integridade dos dados e solução de problemas.</p>
-          <p lang="en">Currently at <strong>Vale's Asset Monitoring Center</strong> in the Port of Tubarão, I'm the technical owner of the PI environment and the online monitoring systems (AVEVA PI, ACOEM and SKF). I build integrated solutions in PI System and new asset-monitoring systems, integrate PLC and condition-monitoring data into the PIMS over OPC, define PI Vision requirements, review PLC logic and help deploy new protection systems.</p>
+          <p lang="en">Currently at <strong>Vale's Asset Monitoring Center</strong> in the Port of Tubarão, I'm the technical owner of the PI environment and the online monitoring systems (ACOEM, SKF and Dynamox). I build integrated solutions in PI System and new asset-monitoring systems, bring PLC and monitoring-system data into the PIMS, and work on PLC logic review, the rollout of new protection systems and failure analysis.</p>
           <p lang="en">Previous experience developing PLC logic (Rockwell ControlLogix), SCADA development and HMIs, plus systems commissioning and start-up. Technical, hands-on profile focused on reliability, data integrity and problem solving.</p>
         </div>
       </div>
+
+      <dl class="datasheet reveal">
+        <div>
+          <dt><span lang="pt">Local</span><span lang="en">Location</span></dt>
+          <dd><b>Vila Velha, ES</b><span lang="pt">Brasil</span><span lang="en">Brazil</span></dd>
+        </div>
+        <div>
+          <dt><span lang="pt">Idiomas</span><span lang="en">Languages</span></dt>
+          <dd><b lang="pt">Inglês intermediário superior</b><b lang="en">Upper-intermediate English</b><span lang="pt">Conduzo reuniões técnicas em inglês</span><span lang="en">I lead technical meetings in English</span></dd>
+        </div>
+        <div>
+          <dt><span lang="pt">Graduação</span><span lang="en">Degree</span></dt>
+          <dd><b lang="pt">Engenharia Elétrica</b><b lang="en">B.Eng. Electrical Engineering</b><span>Multivix · 2023</span></dd>
+        </div>
+        <div>
+          <dt><span lang="pt">Pós-graduação</span><span lang="en">Postgraduate</span></dt>
+          <dd><b lang="pt">Análise de Dados</b><b lang="en">Data Analysis</b><span>Multivix · 2025</span></dd>
+        </div>
+      </dl>
     </div>
   </section>
 
@@ -147,7 +136,6 @@
   <section class="block" id="competencias" data-section>
     <div class="wrap">
       <header class="sec-head reveal">
-        <span class="sec-num">02</span>
         <h2><span lang="pt">Do sensor à decisão</span><span lang="en">From sensor to decision</span></h2>
         <p lang="pt">A cadeia de dados em que trabalho: do instrumento em campo até o PI Vision, os alertas e a IA.</p>
         <p lang="en">The data chain I work across: from the field instrument to PI Vision, alerts and AI.</p>
@@ -234,7 +222,6 @@
   <section class="block" id="projetos" data-section>
     <div class="wrap">
       <header class="sec-head reveal">
-        <span class="sec-num">03</span>
         <h2><span lang="pt">Projetos</span><span lang="en">Projects</span></h2>
         <p lang="pt">Do painel de relés ao monitoramento com IA. Clique em um projeto para ver os detalhes.</p>
         <p lang="en">From relay panels to AI-assisted monitoring. Click a project for details.</p>
@@ -243,7 +230,7 @@
       <!-- Featured: TubIA -->
       <article class="feature reveal">
         <div class="feature-txt">
-          <p class="kicker"><span class="led"></span>TubIA · Vale · 2026</p>
+          <p class="kicker">TubIA · Vale · 2026</p>
           <h3><span lang="pt">Uma central única para monitorar os ativos de um porto</span><span lang="en">A single hub to monitor a port's assets</span></h3>
           <p lang="pt">Antes, cada alarme virava uma investigação manual entre 3 ou 4 sistemas. O TubIA junta temperatura, vibração, análise de óleo, corrente dos motores e inspeção de campo no mesmo lugar, com alarmes priorizados e uma IA local.</p>
           <p lang="en">Every alarm used to mean a manual investigation across 3 or 4 systems. TubIA brings temperature, vibration, oil analysis, motor current and field inspections together, with prioritized alarms and a local AI.</p>
@@ -470,20 +457,12 @@
   <section class="block" id="trajetoria" data-section>
     <div class="wrap">
       <header class="sec-head reveal">
-        <span class="sec-num">04</span>
         <h2><span lang="pt">Trajetória</span><span lang="en">Experience</span></h2>
       </header>
 
       <div class="journey">
-        <div class="year-board" aria-hidden="true">
-          <div class="year" id="yearNow">2024</div>
-          <div class="year-to" id="yearTo"><span lang="pt">hoje</span><span lang="en">now</span></div>
-          <div class="year-org" id="yearOrg">Vale</div>
-          <div class="belt"><i></i></div>
-        </div>
 
         <div class="jobs">
-          <div class="line" aria-hidden="true"><i id="lineFill"></i></div>
 
           <article class="job now" data-y1="2024" data-y2="hoje|now" data-org="Vale">
             <div class="when"><b>2024 — <span lang="pt">hoje</span><span lang="en">now</span></b>Vitória, ES</div>
@@ -554,7 +533,6 @@
   <section class="block" id="reconhecimentos" data-section>
     <div class="wrap">
       <header class="sec-head reveal">
-        <span class="sec-num">05</span>
         <h2><span lang="pt">Reconhecimentos e eventos</span><span lang="en">Recognition &amp; events</span></h2>
       </header>
       <div class="recog">
@@ -632,15 +610,14 @@
   <section class="block field" id="campo" data-section>
     <div class="wrap">
       <header class="sec-head reveal">
-        <span class="sec-num">06</span>
         <h2><span lang="pt">No campo</span><span lang="en">In the field</span></h2>
         <p lang="pt">Painéis, salas de controle, comissionamentos e o porto visto de cima.</p>
         <p lang="en">Panels, control rooms, commissioning and the port from above.</p>
       </header>
       <div class="loops reveal">
-        <figure class="a"><video src="img/loop-porto.mp4" poster="img/loop-porto.webp" autoplay muted loop playsinline preload="metadata" aria-label="Vista do Porto de Tubarão"></video><figcaption><i></i>Porto de Tubarão · 2024</figcaption></figure>
-        <figure class="b"><video src="img/loop-roda-cacamba.mp4" poster="img/loop-roda-cacamba.webp" autoplay muted loop playsinline preload="metadata" aria-label="Roda de caçamba de recuperadora"></video><figcaption><i></i><span lang="pt">Roda de caçamba · Carajás, 2024</span><span lang="en">Bucket wheel · Carajás, 2024</span></figcaption></figure>
-        <figure class="c"><video src="img/loop-patio-drone.mp4" poster="img/loop-patio-drone.webp" autoplay muted loop playsinline preload="metadata" aria-label="Pátio de minério visto de drone"></video><figcaption><i></i><span lang="pt">Pátio de minério visto de drone</span><span lang="en">Ore stockyard from a drone</span></figcaption></figure>
+        <figure class="a"><video src="img/loop-porto.mp4" poster="img/loop-porto.webp" autoplay muted loop playsinline preload="metadata" aria-label="Vista do Porto de Tubarão"></video><figcaption>Porto de Tubarão · 2024</figcaption></figure>
+        <figure class="b"><video src="img/loop-roda-cacamba.mp4" poster="img/loop-roda-cacamba.webp" autoplay muted loop playsinline preload="metadata" aria-label="Roda de caçamba de recuperadora"></video><figcaption><span lang="pt">Roda de caçamba · Carajás, 2024</span><span lang="en">Bucket wheel · Carajás, 2024</span></figcaption></figure>
+        <figure class="c"><video src="img/loop-patio-drone.mp4" poster="img/loop-patio-drone.webp" autoplay muted loop playsinline preload="metadata" aria-label="Pátio de minério visto de drone"></video><figcaption><span lang="pt">Pátio de minério visto de drone</span><span lang="en">Ore stockyard from a drone</span></figcaption></figure>
       </div>
     </div>
 
@@ -672,7 +649,6 @@
   <section class="block" id="formacao" data-section>
     <div class="wrap">
       <header class="sec-head reveal">
-        <span class="sec-num">07</span>
         <h2><span lang="pt">Formação</span><span lang="en">Education</span></h2>
       </header>
       <div class="edu reveal">
@@ -696,7 +672,7 @@
   <section class="contact" id="contato" data-section>
     <div class="contact-bg" aria-hidden="true"></div>
     <div class="wrap">
-      <p class="eyebrow reveal"><span class="tick"></span><span lang="pt">Contato</span><span lang="en">Contact</span></p>
+      <p class="eyebrow reveal"><span lang="pt">Contato</span><span lang="en">Contact</span></p>
       <h2 class="reveal"><span lang="pt">Vamos conversar sobre automação e monitoramento?</span><span lang="en">Let's talk automation and asset monitoring.</span></h2>
       <p class="reveal" lang="pt">Aberto a trocar experiências, palestras e novas oportunidades.</p>
       <p class="reveal" lang="en">Open to exchanging ideas, speaking invitations and new opportunities.</p>
