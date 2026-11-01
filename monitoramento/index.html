@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Monitoramento · heitorklippel.com.br</title>
+  <meta name="theme-color" content="#07090d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .back { margin-left: auto; color: var(--muted); text-decoration: none; font-size: 14px; }
+    .back:hover { color: var(--text); }
+    .mon { padding: 110px 0 80px; }
+    .mon h1 { margin: 0 0 8px; font-weight: 800; font-size: clamp(30px, 4vw, 48px); letter-spacing: -.03em; line-height: 1.05; }
+    .mon .sub { color: var(--muted); margin: 0 0 36px; font-size: 15px; }
+    .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+    .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; }
+    .tile small { display: block; color: var(--muted); font-size: 14px; margin-bottom: 6px; }
+    .tile b { font-size: 36px; font-weight: 800; letter-spacing: -.02em; color: var(--text); font-variant-numeric: tabular-nums; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 22px 22px 18px; margin-bottom: 16px; }
+    .panel h2 { margin: 0 0 16px; font-size: 17px; font-weight: 700; }
+    .chart { position: relative; }
+    .chart svg { display: block; width: 100%; height: 240px; }
+    .chart .grid line { stroke: var(--line); stroke-width: 1; }
+    .chart .grid text, .chart .axis text { fill: var(--dim); font: 400 12px var(--font); }
+    .chart .bar { fill: var(--amber); }
+    .chart .hit { fill: transparent; cursor: default; }
+    .chart .hit:hover + .bar, .chart .bar.on { fill: var(--amber-2); }
+    .tip {
+      position: absolute; pointer-events: none; transform: translate(-50%, -100%); white-space: nowrap;
+      background: var(--bg); border: 1px solid var(--line-2); border-radius: 6px; padding: 8px 10px;
+      font-size: 13px; color: var(--soft); opacity: 0; transition: opacity .12s;
+    }
+    .tip b { color: var(--text); }
+    details { margin-top: 10px; font-size: 14px; color: var(--muted); }
+    details summary { cursor: pointer; }
+    details table { width: 100%; border-collapse: collapse; margin-top: 10px; font-variant-numeric: tabular-nums; }
+    details td, details th { text-align: left; padding: 6px 0; border-bottom: 1px solid var(--line); }
+    details td + td, details th + th { text-align: right; }
+    .lists { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .rank { list-style: none; margin: 0; padding: 0; }
+    .rank li { position: relative; display: flex; justify-content: space-between; gap: 12px; padding: 7px 10px; margin-bottom: 4px; font-size: 14.5px; color: var(--soft); }
+    .rank li span:first-child { position: relative; z-index: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .rank li span:last-child { position: relative; z-index: 1; color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .rank li i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: rgba(255,176,0,.16); }
+    .empty, .msg { color: var(--muted); font-size: 14.5px; }
+    .msg.err { color: var(--red); }
+    @media (max-width: 760px) {
+      .tiles { grid-template-columns: 1fr; }
+      .lists { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-api="https://site-stats.heiklippel.workers.dev/">
+
+<header class="top scrolled">
+  <div class="wrap">
+    <a class="brand" href="../">Heitor Klippel</a>
+    <a class="back" href="../">← Voltar ao site</a>
+  </div>
+</header>
+
+<main class="wrap mon">
+  <h1>Monitoramento do site</h1>
+  <p class="sub" id="sub">Carregando dados do Cloudflare Web Analytics…</p>
+
+  <div class="tiles">
+    <div class="tile"><small>Visitas</small><b id="tVisits">–</b></div>
+    <div class="tile"><small>Visualizações de página</small><b id="tViews">–</b></div>
+    <div class="tile"><small>Média de visitas por dia</small><b id="tAvg">–</b></div>
+  </div>
+
+  <section class="panel">
+    <h2>Visitas por dia</h2>
+    <div class="chart" id="chart"><p class="msg" id="msg">Carregando…</p></div>
+    <details><summary>Ver em tabela</summary><table><thead><tr><th>Dia</th><th>Visitas</th><th>Páginas vistas</th></tr></thead><tbody id="table"></tbody></table></details>
+  </section>
+
+  <div class="lists">
+    <section class="panel"><h2>De onde vieram</h2><ul class="rank" id="lRef"></ul></section>
+    <section class="panel"><h2>Páginas mais vistas</h2><ul class="rank" id="lPages"></ul></section>
+    <section class="panel"><h2>Países</h2><ul class="rank" id="lCountries"></ul></section>
+    <section class="panel"><h2>Aparelhos</h2><ul class="rank" id="lDevices"></ul></section>
+    <section class="panel"><h2>Navegadores</h2><ul class="rank" id="lBrowsers"></ul></section>
+  </div>
+</main>
+
+<script>
+(() => {
+  const API = document.body.dataset.api;
+  const $ = (id) => document.getElementById(id);
+  const nf = new Intl.NumberFormat("pt-BR");
+  const dayFmt = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", timeZone: "UTC" });
+  const longFmt = new Intl.DateTimeFormat("pt-BR", { weekday: "short", day: "2-digit", month: "short", timeZone: "UTC" });
+  const deviceNames = { desktop: "Computador", mobile: "Celular", tablet: "Tablet" };
+  const regions = new Intl.DisplayNames(["pt-BR"], { type: "region" });
+  const country = (c) => { try { return c ? regions.of(c) : "Desconhecido"; } catch (e) { return c; } };
+
+  function fail(text) {
+    $("sub").textContent = "Não foi possível carregar os dados.";
+    $("msg").textContent = text;
+    $("msg").classList.add("err");
+  }
+
+  function rank(el, list, label = (n) => n) {
+    if (!list.length) { el.innerHTML = '<li class="empty">Sem dados ainda.</li>'; return; }
+    const max = Math.max(...list.map((r) => r.count));
+    el.innerHTML = list.map((r) => `<li><i style="width:${(r.count / max * 100).toFixed(1)}%"></i><span>${label(r.name)}</span><span>${nf.format(r.count)}</span></li>`).join("");
+  }
+
+  function fillDays(byDay, days, updated) {
+    const map = new Map(byDay.map((d) => [d.date, d]));
+    const out = [];
+    const end = new Date(updated);
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() - i));
+      const key = d.toISOString().slice(0, 10);
+      out.push(map.get(key) || { date: key, visits: 0, pageviews: 0 });
+    }
+    return out;
+  }
+
+  function chart(days) {
+    const box = $("chart");
+    const W = Math.max(280, box.clientWidth), H = 240, padL = 34, padB = 26, padT = 10;
+    const max = Math.max(1, ...days.map((d) => d.visits));
+    const step = Math.max(1, Math.ceil(max / 4));
+    const top = step * Math.ceil(max / step);
+    const y = (v) => padT + (H - padT - padB) * (1 - v / top);
+    const slot = (W - padL) / days.length;
+    const bw = Math.max(2, slot - 2);
+    let grid = "", bars = "", axis = "";
+    for (let v = 0; v <= top; v += step) grid += `<line x1="${padL}" x2="${W}" y1="${y(v)}" y2="${y(v)}"/><text x="${padL - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+    days.forEach((d, i) => {
+      const x = padL + i * slot + 1;
+      const h = Math.max(0, y(0) - y(d.visits));
+      const r = Math.min(4, bw / 2, h);
+      const path = h > 0
+        ? `M${x},${y(0)} V${y(d.visits) + r} Q${x},${y(d.visits)} ${x + r},${y(d.visits)} H${x + bw - r} Q${x + bw},${y(d.visits)} ${x + bw},${y(d.visits) + r} V${y(0)} Z`
+        : "";
+      bars += `<rect class="hit" data-i="${i}" x="${x - 1}" y="${padT}" width="${slot}" height="${H - padT - padB}"/><path class="bar" d="${path}"/>`;
+      if (i % (W < 600 ? 10 : 5) === 0 || i === days.length - 1) axis += `<text x="${x + bw / 2}" y="${H - 6}" text-anchor="middle">${dayFmt.format(new Date(d.date))}</text>`;
+    });
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Visitas por dia nos últimos ${days.length} dias"><g class="grid">${grid}</g><g>${bars}</g><g class="axis">${axis}</g></svg><div class="tip" id="tip"></div>`;
+    const svg = box.querySelector("svg"), tip = $("tip");
+    svg.addEventListener("pointermove", (e) => {
+      const hit = e.target.closest(".hit");
+      box.querySelectorAll(".bar.on").forEach((b) => b.classList.remove("on"));
+      if (!hit) { tip.style.opacity = 0; return; }
+      const d = days[+hit.dataset.i];
+      hit.nextElementSibling.classList.add("on");
+      const rb = box.getBoundingClientRect(), rh = hit.getBoundingClientRect();
+      tip.innerHTML = `${longFmt.format(new Date(d.date))}<br><b>${nf.format(d.visits)}</b> visitas · ${nf.format(d.pageviews)} páginas`;
+      tip.style.left = (rh.left - rb.left + rh.width / 2) + "px";
+      tip.style.top = (rh.top - rb.top + 8) + "px";
+      tip.style.opacity = 1;
+    });
+    svg.addEventListener("pointerleave", () => { tip.style.opacity = 0; box.querySelectorAll(".bar.on").forEach((b) => b.classList.remove("on")); });
+    $("table").innerHTML = days.slice().reverse().map((d) => `<tr><td>${longFmt.format(new Date(d.date))}</td><td>${d.visits}</td><td>${d.pageviews}</td></tr>`).join("");
+  }
+
+  if (!API) { fail("O endereço do Worker ainda não foi configurado nesta página."); return; }
+
+  fetch(API).then((r) => r.json()).then((s) => {
+    if (s.error) throw new Error(s.error);
+    const days = fillDays(s.byDay, s.days, s.updated);
+    const hora = new Date(s.updated).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+    $("sub").textContent = `Últimos ${s.days} dias · atualizado em ${hora} · dados do Cloudflare Web Analytics`;
+    $("tVisits").textContent = nf.format(s.visits);
+    $("tViews").textContent = nf.format(s.pageviews);
+    $("tAvg").textContent = (s.visits / s.days).toLocaleString("pt-BR", { maximumFractionDigits: 1 });
+    chart(days);
+    let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(() => chart(days), 150); });
+    rank($("lRef"), s.referrers, (n) => n || "Acesso direto");
+    rank($("lPages"), s.pages, (n) => n === "/" ? "Página inicial" : n);
+    rank($("lCountries"), s.countries, country);
+    rank($("lDevices"), s.devices, (n) => deviceNames[n] || n || "Outro");
+    rank($("lBrowsers"), s.browsers, (n) => n || "Outro");
+  }).catch((e) => fail(String(e.message || e)));
+})();
+</script>
+</body>
+</html>
