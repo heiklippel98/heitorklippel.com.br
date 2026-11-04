@@ -3,6 +3,7 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const track = (name, data) => { try { window.umami && window.umami.track(name, data); } catch (e) {} };
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
@@ -16,7 +17,11 @@
     langBtn.textContent = lang === "en" ? "PT" : "EN";
     store.set("lang", lang);
   };
-  langBtn.addEventListener("click", () => setLang(root.dataset.lang === "pt" ? "en" : "pt"));
+  langBtn.addEventListener("click", () => {
+    const lang = root.dataset.lang === "pt" ? "en" : "pt";
+    setLang(lang);
+    track("idioma", { para: lang });
+  });
 
   // ---- Header + mobile menu ----
   const top = $("#top");
@@ -56,6 +61,7 @@
     b.querySelector("em").textContent = n;
     b.addEventListener("click", () => {
       filterBtns.forEach((x) => x.classList.toggle("on", x === b));
+      track("filtro-projetos", { filtro: f });
       cards.forEach((c) => {
         const show = f === "all" || c.dataset.cat.split(" ").includes(f);
         c.classList.toggle("hide", !show);
@@ -80,6 +86,7 @@
       $$(".proj", dlg).forEach((p) => p.classList.toggle("active", p.id === "p-" + btn.dataset.proj));
       dlg.showModal();
       dlg.scrollTop = 0;
+      track("projeto-aberto", { projeto: btn.dataset.proj });
     });
   });
   $("[data-close]", dlg).addEventListener("click", () => dlg.close());
